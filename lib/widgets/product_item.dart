@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttershopudemy/providers/cart.dart';
 import 'package:fluttershopudemy/providers/product.dart';
 import 'package:fluttershopudemy/screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,10 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     //only builds initial
     final Product product = Provider.of<Product>(
+      context,
+      listen: false,
+    );
+    final cart = Provider.of<Cart>(
       context,
       listen: false,
     );
@@ -55,7 +60,13 @@ class ProductItem extends StatelessWidget {
             icon: Icon(
               Icons.shopping_cart,
             ),
-            onPressed: () {},
+            onPressed: () {
+              cart.addItem(
+                product.id,
+                product.price,
+                product.title,
+              );
+            },
             color: Theme.of(context).accentColor,
           ),
         ),
