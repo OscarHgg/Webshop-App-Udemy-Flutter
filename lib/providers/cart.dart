@@ -26,6 +26,15 @@ class Cart with ChangeNotifier {
     return _items.length;
   }
 
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, cartItem) {
+      total += cartItem.price * cartItem.quantity;
+    });
+
+    return total;
+  }
+
   void addItem(
     String productId,
     double price,
@@ -55,7 +64,30 @@ class Cart with ChangeNotifier {
       );
     }
     //always notify listeners to get info up flagpole
-        notifyListeners();
+    notifyListeners();
+  }
 
+  void removeItem(String productId) {
+    //TODO alternative reducing quantity by one 
+    // if (_items.containsKey(productId)) {
+    //   //product item already exists, change quantity
+    //   _items.update(
+    //     productId,
+    //     (existingCartItem) => CartItem(
+    //       id: existingCartItem.id,
+    //       title: existingCartItem.title,
+    //       price: existingCartItem.price,
+    //       quantity: existingCartItem.quantity - 1,
+    //     ),
+    //   );
+    // } else {}
+    //always notify listeners to get info up flagpole
+    _items.remove(productId);
+    notifyListeners();
+  }
+
+  void clearCart() {
+    _items = {};
+    notifyListeners();
   }
 }
