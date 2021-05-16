@@ -68,7 +68,7 @@ class Cart with ChangeNotifier {
   }
 
   void removeItem(String productId) {
-    //TODO alternative reducing quantity by one 
+    
     // if (_items.containsKey(productId)) {
     //   //product item already exists, change quantity
     //   _items.update(
@@ -83,6 +83,25 @@ class Cart with ChangeNotifier {
     // } else {}
     //always notify listeners to get info up flagpole
     _items.remove(productId);
+    notifyListeners();
+  }
+
+  void removeSingleItem(String productId) {
+    if (!_items.containsKey(productId)) {
+      return;
+    }
+    if (_items[productId].quantity > 1) {
+      _items.update(
+          productId,
+          (existingCartItem) => CartItem(
+              id: existingCartItem.id,
+              title: existingCartItem.title,
+              price: existingCartItem.price,
+              quantity: existingCartItem.quantity - 1));
+    } else {
+      _items.remove(productId);
+    }
+
     notifyListeners();
   }
 

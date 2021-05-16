@@ -32,6 +32,29 @@ class CartItem extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('Do you want to remove all the items?'),
+            actions: [
+              FlatButton(
+                child: Text('Nope'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+              FlatButton(
+                child: Text('Yeaaa'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+              ),
+            ],
+          ),
+        );
+      },
       onDismissed: (direction) {
         Provider.of<Cart>(
           context,
@@ -57,7 +80,27 @@ class CartItem extends StatelessWidget {
             title: Text(title),
             subtitle:
                 Text('Total: SEK ${(price * quantity).toStringAsFixed(2)}'),
-            trailing: Text('$quantity x'),
+            trailing: //Text('$quantity x'),
+                TextButton(
+              onPressed: () {
+                Provider.of<Cart>(
+                  context,
+                  listen: false,
+                ).removeSingleItem(productId);
+              },
+              onLongPress: () {
+                Provider.of<Cart>(
+                  context,
+                  listen: false,
+                ).addItem(productId, price, title);
+              },
+              child: CircleAvatar(
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Text('$quantity X'),
+                ),
+              ),
+            ),
           ),
         ),
       ),

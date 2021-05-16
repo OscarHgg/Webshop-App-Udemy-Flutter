@@ -41,17 +41,16 @@ class Products with ChangeNotifier {
   // var _showFavoritesOnly = false;
 
   List<Product> get items {
-
     //[_items] returns a copy of the list and fills it with ..., as list will change
     return [..._items];
   }
 
   List<Product> get favItems {
-    return _items.where((item) => item.isFavorite).toList(); 
+    return _items.where((item) => item.isFavorite).toList();
   }
 
   // void showFavoritesOnly() {
-  //   _showFavoritesOnly = true; 
+  //   _showFavoritesOnly = true;
   //   notifyListeners();
   // }
 
@@ -60,11 +59,37 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct() {
-    //_items.add(value);
+  void addProduct(Product product) {
+    final newProduct = Product(
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      id: DateTime.now().toString(),
+    );
 
+    _items.add(newProduct);
+    //_items.insert(0, newProduct); //insert at start of list
     //listens to ChangeNotifierProvider widget in main.dart and updates
     //the relevant widgets
+    notifyListeners();
+  }
+
+  void updateProduct(String id, Product newProduct) {
+    //find existing product
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+    } else {
+      print('...');
+    }
+    //replace it
+  }
+
+  void deleteProduct(String id) {
+    _items.removeWhere((prod) => prod.id == id);
     notifyListeners();
   }
 

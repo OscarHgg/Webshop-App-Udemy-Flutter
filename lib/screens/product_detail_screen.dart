@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:fluttershopudemy/providers/cart.dart';
-import 'package:fluttershopudemy/providers/product.dart';
 import 'package:fluttershopudemy/providers/products_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -86,16 +83,27 @@ class ProductDetailScreen extends StatelessWidget {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          FloatingActionButton(
-              child: Icon(
-                Icons.favorite,
-                color: Colors.black,
-                size: 24,
-              ),
-              elevation: 0,
-              onPressed: () {
-                loadedProduct.toggleFavorite();
-              }),
+          loadedProduct.isFavorite
+              ? FloatingActionButton(
+                  child: Icon(
+                    Icons.favorite,
+                    color: Colors.black,
+                    size: 24,
+                  ),
+                  elevation: 0,
+                  onPressed: () {
+                    loadedProduct.toggleFavorite();
+                  })
+              : FloatingActionButton(
+                  child: Icon(
+                    Icons.favorite_border,
+                    color: Colors.black,
+                    size: 24,
+                  ),
+                  elevation: 0,
+                  onPressed: () {
+                    loadedProduct.toggleFavorite();
+                  }),
           FloatingActionButton(
               child: Icon(
                 Icons.add,
