@@ -15,15 +15,9 @@ class ProductDetailScreen extends StatelessWidget {
     //getting info through routes in main
     final productId = ModalRoute.of(context).settings.arguments as String;
     //(context, listen:false) = doesnt update provider after initial
-    final loadedProduct = Provider.of<Products>(
-      context,
-      listen: false,
-    ).findById(productId);
+    final loadedProduct = Provider.of<Products>(context).findById(productId);
 
-    final cart = Provider.of<Cart>(
-      context,
-      listen: false,
-    );
+    final cart = Provider.of<Cart>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -83,27 +77,18 @@ class ProductDetailScreen extends StatelessWidget {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          loadedProduct.isFavorite
-              ? FloatingActionButton(
-                  child: Icon(
-                    Icons.favorite,
-                    color: Colors.black,
-                    size: 24,
-                  ),
-                  elevation: 0,
-                  onPressed: () {
-                    loadedProduct.toggleFavorite();
-                  })
-              : FloatingActionButton(
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.black,
-                    size: 24,
-                  ),
-                  elevation: 0,
-                  onPressed: () {
-                    loadedProduct.toggleFavorite();
-                  }),
+          FloatingActionButton(
+              child: Icon(
+                loadedProduct.isFavorite
+                    ? Icons.favorite
+                    : Icons.favorite_border,
+                color: Colors.black,
+                size: 24,
+              ),
+              elevation: 0,
+              onPressed: () {
+                loadedProduct.toggleFavorite();
+              }),
           FloatingActionButton(
               child: Icon(
                 Icons.add,

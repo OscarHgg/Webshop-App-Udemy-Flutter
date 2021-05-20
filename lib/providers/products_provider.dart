@@ -63,11 +63,12 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) {
+    //make void to use future function to completion bool for loading indicator
     const url =
         'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products.json';
 
-    http
+    return http
         .post(
       (Uri.parse(url)),
       body: json.encode({
@@ -91,9 +92,13 @@ class Products with ChangeNotifier {
       _items.add(newProduct);
 
       //_items.insert(0, newProduct); //insert at start of list
+
       //listens to ChangeNotifierProvider widget in main.dart and updates
       //the relevant widgets
       notifyListeners();
+    }).catchError((error) {
+      print(error);
+      throw error;
     });
   }
 
