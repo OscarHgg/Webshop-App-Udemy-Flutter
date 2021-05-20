@@ -96,7 +96,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
     _form.currentState.save();
     if (_editedProduct.id != null) {
-      //editing product
+      //editing product, because id exists
       Provider.of<Products>(
         context,
         listen: false,
@@ -116,7 +116,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit product'),
+        title: _initValues['title'].isEmpty
+            ? Text(
+                'New product',
+              )
+            : Text(
+                'Edit product',
+              ),
         actions: [
           IconButton(
             icon: Icon(
