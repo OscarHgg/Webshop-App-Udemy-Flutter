@@ -45,7 +45,8 @@ class Products with ChangeNotifier {
   // var _showFavoritesOnly = false;
 
   List<Product> get items {
-    //[_items] returns a copy of the list and fills it with ..., as list will change
+    //[_items] returns a copy of the list and fills it with ..., 
+    //as list will change 
     return [..._items];
   }
 
@@ -63,43 +64,44 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> addProduct(Product product) {
+  Future<void> addProduct(Product product) async {
     //make void to use future function to completion bool for loading indicator
     const url =
         'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products.json';
 
-    return http
-        .post(
-      (Uri.parse(url)),
-      body: json.encode({
-        'title': product.title,
-        'description': product.description,
-        'imageUrl': product.imageUrl,
-        'price': product.price,
-        'isFavorite': product.isFavorite,
-      }),
-    )
-        .then((res) {
+    try {
+      final response = await http.post(
+        (Uri.parse(
+          url,
+        )),
+        //encode json to Product object
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'imageUrl': product.imageUrl,
+          'price': product.price,
+          'isFavorite': product.isFavorite,
+        }),
+      );
+
       final newProduct = Product(
         title: product.title,
         description: product.description,
         price: product.price,
         imageUrl: product.imageUrl,
         //use firebase unique ID from the http post call + .then()
-        id: json.decode(res.body)['name'],
+        id: json.decode(response.body)['name'],
       );
-
       _items.add(newProduct);
-
       //_items.insert(0, newProduct); //insert at start of list
 
       //listens to ChangeNotifierProvider widget in main.dart and updates
       //the relevant widgets
       notifyListeners();
-    }).catchError((error) {
+    } catch (error) {
       print(error);
       throw error;
-    });
+    }
   }
 
   void updateProduct(String id, Product newProduct) {
