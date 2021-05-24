@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'product.dart';
+import './product.dart';
+
 //limit bundle to only http features
 import 'package:http/http.dart' as http;
 
@@ -45,8 +46,8 @@ class Products with ChangeNotifier {
   // var _showFavoritesOnly = false;
 
   List<Product> get items {
-    //[_items] returns a copy of the list and fills it with ..., 
-    //as list will change 
+    //[_items] returns a copy of the list and fills it with ...,
+    //as list will change
     return [..._items];
   }
 
@@ -63,6 +64,30 @@ class Products with ChangeNotifier {
   //   _showFavoritesOnly = false;
   //   notifyListeners();
   // }
+
+  Future<void> fetchAndSetProducts() async {
+    final url =
+        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+    try {
+      final response = await http.get(Uri.parse(url));
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      final List<Product> loadedProducts = [];
+      extractedData.forEach((prodId, prodData) {
+        loadedProducts.add(Product(
+          id: prodId,
+          title: prodData['title'],
+          description: prodData['description'],
+          price: prodData['price'],
+          isFavorite: prodData['isFavorite'],
+          imageUrl: prodData['imageUrl'],
+        ));
+      });
+      _items += loadedProducts;
+      notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+  }
 
   Future<void> addProduct(Product product) async {
     //make void to use future function to completion bool for loading indicator

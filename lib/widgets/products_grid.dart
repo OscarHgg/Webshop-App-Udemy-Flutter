@@ -17,7 +17,8 @@ class ProductsGrid extends StatelessWidget {
 
     //uses a getter on the provider to get list of <Product>
     // //if ShowFavorites has been selected, ternary operator for them - or all items
-    final products = showOnlyFavorites ? productsData.favItems : productsData.items;
+    final products =
+        showOnlyFavorites ? productsData.favItems : productsData.items;
 
     return GridView.builder(
       padding: const EdgeInsets.all(10),
@@ -35,7 +36,7 @@ class ProductsGrid extends StatelessWidget {
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        childAspectRatio: 3 / 2,
+        childAspectRatio: 2.5,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         mainAxisExtent: 150,

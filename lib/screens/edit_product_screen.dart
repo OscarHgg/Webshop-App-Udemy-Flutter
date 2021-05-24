@@ -77,6 +77,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _updateImageUrl() {
+    //basic imageUrl error handling
     if (!_imageUrlFocusNode.hasFocus) {
       if ((_imageUrlController.text.startsWith('http') &&
               _imageUrlController.text.startsWith('https')) ||
@@ -92,13 +93,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();
+
+    //bounce if not valid
     if (!isValid) {
       return;
     }
     _form.currentState.save();
     setState(() {
       _isLoading = true;
-      Future.delayed(Duration(seconds: 5));
+
+      //add delay to actually see the loading graphic
+      //Future.delayed(Duration(seconds: 5));
     });
     if (_editedProduct.id != null) {
       //editing product, because id exists
@@ -106,6 +111,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
         context,
         listen: false,
       ).updateProduct(_editedProduct.id, _editedProduct);
+
+      //loading done
       setState(() {
         _isLoading = false;
       });
@@ -125,6 +132,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               TextButton(
                 child: Text('Ok'),
                 onPressed: () {
+                  //pop = remove
                   Navigator.of(ctx).pop();
                 },
               )
@@ -146,12 +154,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
     return Scaffold(
       appBar: AppBar(
         title: _initValues['title'].isEmpty
-            ? Text(
-                'New product',
-              )
-            : Text(
-                'Edit product',
-              ),
+            ? Text('New product')
+            : Text('Edit product'),
         actions: [
           IconButton(
             icon: Icon(
@@ -207,6 +211,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         FocusScope.of(context)
                             .requestFocus(_descriptionFocusNode);
                       },
+                      //validation principles
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter price';
