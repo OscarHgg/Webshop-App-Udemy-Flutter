@@ -20,21 +20,17 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
-  var _isInit = false;
+  var _isInit = true;
   var _isLoading = false;
+
 
   @override
   void initState() {
-    // fetch info from database - won't work
-    //Provider.of<Products>(context).fetchAndSetProducts();
-
-    Future.delayed(Duration.zero).then((_) {
-      Provider.of<Products>(
-        context,
-        listen: false,
-      ).fetchAndSetProducts();
-    });
-
+    // Provider.of<Products>(context).fetchAndSetProducts(); // WON'T WORK!
+    // Needs delay to catch result, hack below
+    // Future.delayed(Duration.zero).then((_) {
+    //   Provider.of<Products>(context).fetchAndSetProducts();
+    // });
     super.initState();
   }
 

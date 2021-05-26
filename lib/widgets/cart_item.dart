@@ -39,13 +39,13 @@ class CartItem extends StatelessWidget {
             title: Text('Are you sure?'),
             content: Text('Do you want to remove all the items?'),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text('Nope'),
                 onPressed: () {
                   Navigator.of(ctx).pop(false);
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text('Yeaaa'),
                 onPressed: () {
                   Navigator.of(ctx).pop(true);
