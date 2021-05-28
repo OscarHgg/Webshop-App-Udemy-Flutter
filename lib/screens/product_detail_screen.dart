@@ -87,7 +87,7 @@ class ProductDetailScreen extends StatelessWidget {
               ),
               elevation: 0,
               onPressed: () {
-                loadedProduct.toggleFavorite();
+                //loadedProduct.toggleFavorite;
               }),
           FloatingActionButton(
               child: Icon(

@@ -43,6 +43,11 @@ class Products with ChangeNotifier {
     // ),
   ];
 
+  final String authToken;
+  final String userId;
+
+  Products(this.authToken, this.userId, this._items);
+
 //private variables begin with _
   // var _showFavoritesOnly = false;
 
@@ -66,24 +71,36 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fetchAndSetProducts() async {
-    final url =
-        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+  //auth header in url
+  //square bracket around inparameter makes it optional, but should provide default
+  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
+    final filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+    var url =
+        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products.json?auth=$authToken&$filterString';
     try {
       final response = await http.get(Uri.parse(url));
-      final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      final List<Product> loadedProducts = [];
+      final extractedData = json.decode(response.body);
 
       if (extractedData == null) {
         return;
       }
+
+      url =
+          'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/userFavorites/$userId.json?auth=$authToken';
+
+      final favResponse = await http.get(Uri.parse(url));
+      final favData = Map<String, dynamic>.from(json.decode(favResponse.body));
+
+      final List<Product> loadedProducts = [];
+
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
           price: prodData['price'],
-          isFavorite: prodData['isFavorite'],
+          isFavorite: favData == null ? false : favData[prodId] ?? false,
           imageUrl: prodData['imageUrl'],
         ));
       });
@@ -96,8 +113,8 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     //make void to use future function to completion bool for loading indicator
-    const url =
-        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+    final url =
+        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products.json?auth=$authToken';
 
     try {
       final response = await http.post(
@@ -110,7 +127,7 @@ class Products with ChangeNotifier {
           'description': product.description,
           'imageUrl': product.imageUrl,
           'price': product.price,
-          'isFavorite': product.isFavorite,
+          'creatorId': userId,
         }),
       );
 
@@ -139,7 +156,7 @@ class Products with ChangeNotifier {
     if (prodIndex >= 0) {
       //convert from const to final because dynamic id url interpolation
       final url =
-          'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json';
+          'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json?auth=$authToken';
       http.patch(Uri.parse(url),
           body: json.encode({
             'title': newProduct.title,
@@ -156,7 +173,7 @@ class Products with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     final url =
-        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json';
+        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json?auth=$authToken';
     final productIndex = _items.indexWhere((prod) => prod.id == id);
     //store pointer to product to be deleted
     var product = _items[productIndex];

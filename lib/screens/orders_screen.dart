@@ -38,11 +38,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
         //checking connection state
         body: FutureBuilder(
             future:
-            //doesnt allow for new futures in case of unintentional rebuilds  
+                //doesnt allow for new futures in case of unintentional rebuilds
                 _ordersFuture,
             builder: (ctx, dataSnapshot) {
               if (dataSnapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
               } else {
                 if (dataSnapshot.error != null) {
                   //error handling

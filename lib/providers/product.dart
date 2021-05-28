@@ -17,7 +17,7 @@ class Product with ChangeNotifier {
     @required this.description,
     @required this.imageUrl,
     @required this.price,
-    this.isFavorite = false,
+    this.isFavorite,
   });
 
   void _setFavorite(bool newValue) {
@@ -25,19 +25,19 @@ class Product with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleFavorite() async {
+  Future<void> toggleFavorite(String authToken, String userId) async {
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
 
     final url =
-        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json';
+        'https://flutter-update-b5667-default-rtdb.europe-west1.firebasedatabase.app/userFavorites/$userId/$id.json?auth=$authToken';
     try {
-      final response = await http.patch(
+      final response = await http.put(
         Uri.parse(url),
-        body: json.encode({
-          'isFavorite': isFavorite,
-        }),
+        body: json.encode(
+          isFavorite,
+        ),
       );
       //OPTIMISTIC UPDATING
       if (response.statusCode >= 400) {
