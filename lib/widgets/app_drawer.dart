@@ -12,14 +12,14 @@ class AppDrawer extends StatelessWidget {
       children: [
         AppBar(
           title: Text('switch() {',
-              style: Theme.of(context).appBarTheme.textTheme.bodyText1),
+              style: Theme.of(context).appBarTheme.textTheme.bodyText1,),
           automaticallyImplyLeading: false,
           toolbarHeight: 75.0,
         ),
         Divider(),
         ListTile(
           leading: Icon(Icons.shop),
-          title: Text('Shop'),
+          title: Text('Shop', style: TextStyle(letterSpacing: 2)),
           onTap: () {
             Navigator.of(context).pushReplacementNamed('/');
           },
@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
         Divider(),
         ListTile(
           leading: Icon(Icons.payment),
-          title: Text('Orders'),
+          title: Text('Orders', style: TextStyle(letterSpacing: 2)),
           onTap: () {
             Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName);
           },
@@ -35,7 +35,7 @@ class AppDrawer extends StatelessWidget {
         Divider(),
         ListTile(
           leading: Icon(Icons.edit),
-          title: Text('Your Products'),
+          title: Text('Your Products', style: TextStyle(letterSpacing: 2)),
           onTap: () {
             Navigator.of(context)
                 .pushReplacementNamed(UserProductsScreen.routeName);
@@ -44,7 +44,7 @@ class AppDrawer extends StatelessWidget {
         Divider(),
         ListTile(
           leading: Icon(Icons.exit_to_app),
-          title: Text('Log out'),
+          title: Text('Log out', style: TextStyle(letterSpacing: 2)),
           onTap: () {
             Navigator.of(context).pop();
             Navigator.of(context).pushReplacementNamed('/');

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttershopudemy/models/http_exception.dart';
 import 'package:fluttershopudemy/providers/auth.dart';
@@ -45,43 +46,49 @@ class AuthScreen extends StatelessWidget {
                   Flexible(
                     child: Container(
                       width: double.infinity,
+
                       margin: EdgeInsets.only(bottom: 20.0),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 110.0),
+                      //padding: EdgeInsets.symmetric(
+                      //vertical: 8.0, horizontal: 110.0),
                       //transform: Matrix4.rotationZ(-8 * pi / 180)
                       //.. = include offset with translate, but with previous method return
                       //similar to folder structure
                       //..translate(0.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        //color: Colors.deepPurple.shade400,
-                        gradient: LinearGradient(
-                          colors: [
-                            Theme.of(context).backgroundColor.withOpacity(0.4),
-                            Theme.of(context).accentColor.withOpacity(0.8),
-                            // Color.fromRGBO(150, 50, 117, 1).withOpacity(0.9),
-                            // Color.fromRGBO(200, 255, 255, 1).withOpacity(0.5),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          stops: [0, 1],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 8,
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                      ),
-                      child: Text(
-                        'Blooc!',
-                        style: TextStyle(
-                          color:
-                              Theme.of(context).accentTextTheme.headline6.color,
-                          fontSize: 50,
-                          fontFamily: 'Anton',
-                          fontWeight: FontWeight.normal,
+                      // decoration: BoxDecoration(
+                      //   borderRadius: BorderRadius.circular(2),
+                      //   //color: Colors.deepPurple.shade400,
+                      //   gradient: LinearGradient(
+                      //     colors: [
+                      //       Theme.of(context).backgroundColor.withOpacity(0.4),
+                      //       Theme.of(context).accentColor.withOpacity(0.8),
+                      //       // Color.fromRGBO(150, 50, 117, 1).withOpacity(0.9),
+                      //       // Color.fromRGBO(200, 255, 255, 1).withOpacity(0.5),
+                      //     ],
+                      //     begin: Alignment.topLeft,
+                      //     end: Alignment.bottomRight,
+                      //     stops: [0, 1],
+                      //   ),
+                      //   boxShadow: [
+                      //     BoxShadow(
+                      //       blurRadius: 8,
+                      //       color: Colors.black26,
+                      //       offset: Offset(0, 2),
+                      //     )
+                      //   ],
+                      // ),
+                      child: BorderedText(
+                        child: Text(
+                          '_shopContext',
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .accentTextTheme
+                                .headline6
+                                .color,
+                            fontSize: 44,
+                            fontFamily: 'Anton',
+                            fontWeight: FontWeight.normal,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),

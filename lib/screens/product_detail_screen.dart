@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttershopudemy/providers/cart.dart';
 import 'package:fluttershopudemy/providers/products_provider.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -21,19 +22,24 @@ class ProductDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("print(" + loadedProduct.title + ");",
-            style: Theme.of(context).appBarTheme.textTheme.bodyText2, softWrap: true,),
+        title: Text(
+          "print(" + loadedProduct.title + ");",
+          style: Theme.of(context).appBarTheme.textTheme.bodyText2,
+          softWrap: true,
+        ),
         toolbarHeight: 75.0,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                loadedProduct.imageUrl,
-                fit: BoxFit.cover,
+            FullScreenWidget(
+              child: Container(
+                height: 300,
+                width: double.infinity,
+                child: Image.network(
+                  loadedProduct.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
