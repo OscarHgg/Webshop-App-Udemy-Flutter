@@ -11,8 +11,10 @@ class AppDrawer extends StatelessWidget {
         child: Column(
       children: [
         AppBar(
-          title: Text('App Drawer'),
+          title: Text('switch() {',
+              style: Theme.of(context).appBarTheme.textTheme.bodyText1),
           automaticallyImplyLeading: false,
+          toolbarHeight: 75.0,
         ),
         Divider(),
         ListTile(

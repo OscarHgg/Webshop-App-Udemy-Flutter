@@ -26,7 +26,7 @@ class UserProductsScreen extends StatelessWidget {
     return Scaffold(
         drawer: AppDrawer(),
         appBar: AppBar(
-          title: const Text('Manage products'),
+          title: Text('products.put() {', style: Theme.of(context).appBarTheme.textTheme.bodyText2),
           actions: [
             IconButton(
               icon: const Icon(Icons.add),
@@ -35,6 +35,7 @@ class UserProductsScreen extends StatelessWidget {
               },
             ),
           ],
+          toolbarHeight: 75.0,
         ),
         body: FutureBuilder(
             future: _refreshProducts(context),

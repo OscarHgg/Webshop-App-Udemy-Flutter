@@ -28,8 +28,13 @@ class MyApp extends StatelessWidget {
         ),
         //climbs up and checks Auth, rebuilds if changed
         ChangeNotifierProxyProvider<Auth, Products>(
-          update: (ctx, auth, oldProducts) => Products(auth.token, auth.userId,
-              oldProducts == null ? [] : oldProducts.items),
+          update: (
+            ctx,
+            auth,
+            oldProducts,
+          ) =>
+              Products(auth.token, auth.userId,
+                  oldProducts == null ? [] : oldProducts.items),
           create: null,
         ),
         ChangeNotifierProvider(
@@ -45,9 +50,35 @@ class MyApp extends StatelessWidget {
         builder: (ctx, auth, _) => MaterialApp(
           title: 'Blooc!',
           theme: ThemeData(
-              primarySwatch: Colors.indigo,
-              accentColor: Colors.teal,
-              fontFamily: 'Lato'),
+            primarySwatch: Colors.blueGrey,
+            accentColor: Colors.brown,
+            backgroundColor: Color(0xFFFCFCFC),
+            appBarTheme: AppBarTheme(
+                backgroundColor: Color(0xFF30292F),
+                elevation: 3.0,
+                textTheme: TextTheme(
+                  bodyText1: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 3.0,
+                    fontFamily: 'Anton',
+                  ),
+                  bodyText2: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 3.0,
+                    fontFamily: 'Anton',
+                  ),
+                ),),
+            fontFamily: 'Anton',
+            textTheme: TextTheme(
+                headline1:
+                    TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
+                headline6:
+                    TextStyle(fontSize: 24.0, fontStyle: FontStyle.italic),
+                bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Lato')),
+          ),
+
           //check auth
           home: auth.isAuth
               ? ProductsOverviewScreen()

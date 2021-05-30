@@ -53,7 +53,9 @@ class Auth with ChangeNotifier {
       _token = responseData['idToken'];
       _userId = responseData['localId'];
       _expDate = DateTime.now().add(Duration(
-        seconds: int.parse(responseData['expiresIn']),
+        seconds: int.parse(
+          responseData['expiresIn'],
+        ),
       ));
       _autoLogout();
       //send token

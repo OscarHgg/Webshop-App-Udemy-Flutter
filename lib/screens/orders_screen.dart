@@ -32,7 +32,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Orders'),
+          title: Text('print(orders.toList());',
+              style: Theme.of(context).appBarTheme.textTheme.bodyText2),
+          toolbarHeight: 75.0,
         ),
         drawer: AppDrawer(),
         //checking connection state

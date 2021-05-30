@@ -56,14 +56,16 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Shopity',
+          'cart.add() {',
           style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
+            fontSize: 30,
+            fontWeight: FontWeight.w100,
             letterSpacing: 2,
           ),
           textAlign: TextAlign.end,
+          
         ),
+        toolbarHeight: 75.0,
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
