@@ -3,6 +3,7 @@ import 'package:fluttershopudemy/providers/auth.dart';
 import 'package:fluttershopudemy/providers/cart.dart';
 import 'package:fluttershopudemy/providers/product.dart';
 import 'package:fluttershopudemy/screens/product_detail_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
@@ -34,9 +35,14 @@ class ProductItem extends StatelessWidget {
             Navigator.of(context).pushNamed(ProductDetailScreen.routeName,
                 arguments: product.id);
           },
-          child: Image.network(
-            product.imageUrl,
-            fit: BoxFit.cover,
+          child: Hero(
+            //what image to shift over
+            tag: product.id,
+            child: FadeInImage(
+              placeholder: AssetImage('assets/images/product-placeholder.png'),
+              image: NetworkImage(product.imageUrl),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         footer: GridTileBar(
@@ -68,6 +74,7 @@ class ProductItem extends StatelessWidget {
                 product.price,
                 product.title,
               );
+              Fluttertoast.showToast(msg: 'Added item to favorites!');
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

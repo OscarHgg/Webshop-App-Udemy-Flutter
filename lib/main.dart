@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttershopudemy/helpers/custom_route.dart';
 import 'package:fluttershopudemy/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -48,28 +49,39 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
-          title: 'Blooc!',
+          title: '_shopContext',
           theme: ThemeData(
             primarySwatch: Colors.blueGrey,
             accentColor: Colors.brown,
             backgroundColor: Color(0xFFFCFCFC),
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: CustomPageTransitionBuilder(),
+              TargetPlatform.iOS: CustomPageTransitionBuilder(),
+            }),
             appBarTheme: AppBarTheme(
-                backgroundColor: Color(0xFF30292F),
-                elevation: 3.0,
-                textTheme: TextTheme(
-                  bodyText1: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 3.0,
-                    fontFamily: 'Anton',
-                  ),
-                  bodyText2: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 3.0,
-                    fontFamily: 'Anton',
-                  ),
-                ),),
+              backgroundColor: Color(0xFF30292F),
+              elevation: 3.0,
+              textTheme: TextTheme(
+                bodyText1: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w100,
+                  letterSpacing: 3.0,
+                  fontFamily: 'Anton',
+                ),
+                bodyText2: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w100,
+                  letterSpacing: 3.0,
+                  fontFamily: 'Anton',
+                ),
+                headline1: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w100,
+                  letterSpacing: 3.0,
+                  fontFamily: 'Anton',
+                ),
+              ),
+            ),
             fontFamily: 'Anton',
             textTheme: TextTheme(
                 headline1:

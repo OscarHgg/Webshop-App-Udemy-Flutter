@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttershopudemy/providers/cart.dart';
+import 'package:fluttershopudemy/providers/product.dart';
 import 'package:fluttershopudemy/providers/products_provider.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:provider/provider.dart';
@@ -21,96 +22,77 @@ class ProductDetailScreen extends StatelessWidget {
     final cart = Provider.of<Cart>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "print(" + loadedProduct.title + ");",
-          style: Theme.of(context).appBarTheme.textTheme.bodyText2,
-          softWrap: true,
-        ),
-        toolbarHeight: 75.0,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            FullScreenWidget(
-              child: Container(
-                height: 300,
-                width: double.infinity,
-                child: Image.network(
-                  loadedProduct.imageUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  'SEK ${loadedProduct.price}',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 20,
-                  ),
-                ),
-                Text(
-                  'inkl moms',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              width: double.infinity,
-              child: Text(
-                loadedProduct.description,
-                textAlign: TextAlign.center,
+      // appBar: AppBar(
+      //   title: Text(
+      //     "print(" + loadedProduct.title + ");",
+      //     style: Theme.of(context).appBarTheme.textTheme.bodyText2,
+      //     softWrap: true,
+      //   ),
+      //   toolbarHeight: 75.0,
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300,
+            collapsedHeight: 75,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                "print(" + loadedProduct.title + ");",
+                style: Theme.of(context).appBarTheme.textTheme.bodyText2,
                 softWrap: true,
               ),
+              background: Image.network(
+                loadedProduct.imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          FloatingActionButton(
-              child: Icon(
-                loadedProduct.isFavorite
-                    ? Icons.favorite
-                    : Icons.favorite_border,
-                color: Colors.black,
-                size: 24,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              SizedBox(
+                height: 10,
               ),
-              elevation: 0,
-              onPressed: () {
-                //loadedProduct.toggleFavorite;
-              }),
-          FloatingActionButton(
-              child: Icon(
-                Icons.add,
-                color: Colors.black,
-                size: 24,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    'SEK ${loadedProduct.price}',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'inkl moms',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  )
+                ],
               ),
-              elevation: 0,
-              onPressed: () {
-                cart.addItem(
-                  loadedProduct.id,
-                  loadedProduct.price,
-                  loadedProduct.title,
-                );
-              }),
+              SizedBox(
+                height: 10,
+              ),
+              Divider(),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                width: double.infinity,
+                child: Text(
+                  loadedProduct.description,
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                ),
+              ),
+              SizedBox(
+                height: 800,
+              ),
+            ]),
+          ),
         ],
       ),
     );

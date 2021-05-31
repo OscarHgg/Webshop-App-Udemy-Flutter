@@ -135,7 +135,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           ),
         );
         //finally should always run, which is loading = done and then pop
-      } 
+      }
       //finally {
       //   setState(() {
       //     _isLoading = false;
@@ -155,9 +155,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 75,
         title: _initValues['title'].isEmpty
-            ? Text('New product')
-            : Text('Edit product'),
+            ? Text('New product',
+                style: Theme.of(context).appBarTheme.textTheme.headline1)
+            : Text('Edit product',
+                style: Theme.of(context).appBarTheme.textTheme.headline1),
         actions: [
           IconButton(
             icon: Icon(

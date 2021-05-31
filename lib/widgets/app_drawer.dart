@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttershopudemy/helpers/custom_route.dart';
 import 'package:fluttershopudemy/providers/auth.dart';
 import 'package:fluttershopudemy/screens/user_products_screen.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,10 @@ class AppDrawer extends StatelessWidget {
         child: Column(
       children: [
         AppBar(
-          title: Text('switch() {',
-              style: Theme.of(context).appBarTheme.textTheme.bodyText1,),
+          title: Text(
+            'switch() {',
+            style: Theme.of(context).appBarTheme.textTheme.bodyText1,
+          ),
           automaticallyImplyLeading: false,
           toolbarHeight: 75.0,
         ),
@@ -30,6 +33,11 @@ class AppDrawer extends StatelessWidget {
           title: Text('Orders', style: TextStyle(letterSpacing: 2)),
           onTap: () {
             Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName);
+
+            //animated transition unnamed
+            // Navigator.of(context).pushReplacement(CustomRoute(
+            //   builder: (ctx) => OrdersScreen(),
+            //));
           },
         ),
         Divider(),

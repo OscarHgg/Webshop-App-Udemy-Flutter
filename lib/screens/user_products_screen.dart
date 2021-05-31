@@ -26,7 +26,10 @@ class UserProductsScreen extends StatelessWidget {
     return Scaffold(
         drawer: AppDrawer(),
         appBar: AppBar(
-          title: Text('products.put() {', style: Theme.of(context).appBarTheme.textTheme.bodyText2),
+          title: Text(
+            'products.upsert() {',
+            style: Theme.of(context).appBarTheme.textTheme.headline1,
+          ),
           actions: [
             IconButton(
               icon: const Icon(Icons.add),

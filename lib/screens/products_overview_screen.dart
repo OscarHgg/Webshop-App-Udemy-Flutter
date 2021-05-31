@@ -24,7 +24,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _isInit = true;
   var _isLoading = false;
 
-
   @override
   void initState() {
     // Provider.of<Products>(context).fetchAndSetProducts(); // WON'T WORK!
@@ -57,13 +56,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       appBar: AppBar(
         title: Text(
           'cart.add() {',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.w100,
-            letterSpacing: 2,
-          ),
+          style: Theme.of(context).appBarTheme.textTheme.bodyText1,
           textAlign: TextAlign.end,
-          
         ),
         toolbarHeight: 75.0,
         actions: <Widget>[
